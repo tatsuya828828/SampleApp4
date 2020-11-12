@@ -1,56 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    android:gravity="left"
     android:orientation="vertical"
-    android:gravity="left">
+    tools:context=".MainActivity"
+    android:stretchColumns="1"
+    android:shrinkColumns="1,2"
+    android:collapseColumns="1"
+    android:id="@+id/table">
 
-    <!--  orientation属性の値がhorizontalの場
-            top: 上寄せ
-            center_vertical: 垂直方向に中央寄せ
-            bottom: 下寄せ
+    <!--  TableLayout要素は、各行を表すTableRow要素とセットで利用する
+          レイアウトに配置するウィジェットは、TableRow要素の配下に配置する
+          TableLayoutであれば、最大セル数を基準にレイアウトを作成するため、
+          基準に満たない場合は左詰めされ、余ったセルは空白として表示される  -->
 
-          orientation属性の値がverticalの場合
-            left: 左寄せ
-            center_horizontal: 水平方向に中央寄せ
-            right: 右寄せ
-            start: コンテナの先頭
-            end: コンテナの終端
+    <!--  android:stretchColumns属性を利用することで、特定の列を画面幅に合わせて横に引き伸ばすこともできる
+          値で指定された列が、引き延ばされる、値は1ではなく0から始まる、また、カンマで区切り複数指定することもできる
 
-          どちらの場合でも使える設定値
-            center: 垂直もしくは水平方向に中央寄せ
 
-          レイアウト配下の配置を一括指定したい場合は、LinerLayout要素にandroid:gravity属性を指定する
-          例: android:gravity="center_horizontal" -->
+          android:shrinkColumns属性を用いることで、TableLayoutの幅が画面幅を超えた場合に特定の列幅に縮めることもできる
+          指定方法はstretchColumns属性と同じく対象の列番号を設定できる  -->
 
-    <!--  android:layout_weight属性は、orientation属性が
-            verticalの場合には、ウィジェットの高さに、
-            horizontalの場合は、幅に影響する、
-            値は全体に対する比重を表す。
-            -->
-    <Button
-        android:id="@+id/btn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ボタン１" />
+    <!--  android:collapseColumns属性は、閉じるべき列番号を0,1,2で指定する
+          複数の列を指定する場合にはカンマ区切りで列番号を指定する
+          後はonClick属性をボタンに定義し、MainActivityで処理を定義する  -->
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="100dp"
-        android:text="ボタン２" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnflag_onClick"
+            android:text="[0,0]" />
 
-    <Button
-        android:id="@+id/btn3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:text="ボタン３" />
+    <!--    android:layout_column属性はウィジェットの表示列を列番号で指定することができる    -->
 
-</LinearLayout>
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:text="[0,2]" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[1,0]" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="[1,1]" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="[1.2]" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <!--    android:layout_span属性を利用することで、セルを跨いで配置することができる
+            しかし、セルを跨げるのは横方向だけで、縦方向にセルを跨ぐような機能はTableLayoutにはない、
+            よって、縦方向にセルを跨ぐには、TableRow内にLinerLayoutを配置するといったように、
+            TableLayoutとLinerLayoutを併用する必要がある  -->
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_span="4"
+            android:text="[2,0]" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/button10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[3,0]" />
+
+            <Button
+                android:id="@+id/button11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[3,1]" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/button13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[4,0]" />
+
+            <Button
+                android:id="@+id/button14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[4,1]"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button16"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="[5,0]"/>
+    </TableRow>
+
+</TableLayout>
